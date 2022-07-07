@@ -1,0 +1,24 @@
+{
+  "name": "express_practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brotherson67/zoobydoo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brotherson67/zoobydoo/issues"
+  },
+  "homepage": "https://github.com/brotherson67/zoobydoo#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
