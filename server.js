@@ -9,9 +9,35 @@ const PORT = process.env.PORT || 3000;
 
 // query handler function
 function filterByQuery(query, animalsArray) {
+  // create array to store personality traits
+  let personalityTraitsArray = [];
+  // create localized instance of animals array
   let filteredResults = animalsArray;
-  if (query.diet) {
+
+  // if the query is for personality traits
+  if (query.personalityTraits) {
+    // save it as the personalityTraitsArray
+    // if it is a string add it to the array
+    if (typeof query.personalityTraits === "string") {
+      personalityTraitsArray = [query.personalityTraits];
+    } else {
+      personalityTraitsArray = query.personalityTraits;
+    }
+  }
+
+  // loop through each personality trait
+  personalityTraitsArray.forEach((trait) => {
     filteredResults = filteredResults.filter(
+      // return all the animals that have a personality trait that were mentioned in the query
+      (animals) => animals.personalityTraits.indexOf(trait) !== -1
+    );
+    // after looping through all traits only animals that have all the mentioned traites will remain
+  });
+
+  if (query.diet) {
+    // redefine filteredResults
+    filteredResults = filteredResults.filter(
+      // as only the parts of the animal array that match query parameters
       (animals) => animals.diet === query.diet
     );
   }
@@ -22,7 +48,7 @@ function filterByQuery(query, animalsArray) {
   }
   if (query.name) {
     filteredResults = filteredResults.filter(
-      (animals) => animals.name === animals.query
+      (animals) => animals.name === query.name
     );
   }
   return filteredResults;
@@ -30,9 +56,10 @@ function filterByQuery(query, animalsArray) {
 
 // animal route
 app.get("/api/animals", (req, res) => {
+  // create local instance of animal array
   let results = animals;
   if (req.query) {
-    // if there were parameters, define the results as the query specified field
+    // if there were query parameters, redefine the results as the query specified field
     results = filterByQuery(req.query, results);
   }
   res.json(results);
