@@ -54,6 +54,13 @@ function filterByQuery(query, animalsArray) {
   return filteredResults;
 }
 
+// function to find animals by their ID
+function findById(id, animalsArray) {
+  // return the object at index 0 that has the id matching the parameter
+  const result = animalsArray.filter((animals) => animals.id === id)[0];
+  return result;
+}
+
 // animal route
 app.get("/api/animals", (req, res) => {
   // create local instance of animal array
@@ -63,6 +70,17 @@ app.get("/api/animals", (req, res) => {
     results = filterByQuery(req.query, results);
   }
   res.json(results);
+});
+
+// get specific animals
+app.get("/api/animals/:id", (req, res) => {
+  const result = findById(req.params.id, animals);
+  if (result) {
+    res.json(result);
+    // if there is not a matching animal, send 404
+  } else {
+    res.send(404);
+  }
 });
 
 app.listen(PORT, (req, res) => {
