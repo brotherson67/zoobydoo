@@ -15,10 +15,11 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 //parse incoming JSON data
 app.use(express.json());
+// make the public directory static
+app.use(express.static("public"));
 
 // query handler function
 function filterByQuery(query, animalsArray) {
-  5;
   // create array to store personality traits
   let personalityTraitsArray = [];
   // create localized instance of animals array
@@ -142,6 +143,11 @@ app.post("/api/animals", (req, res) => {
     const animal = createNewAnimal(req.body, animals);
     res.json(req.body);
   }
+});
+
+// serve index.js file from directory
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 app.listen(PORT, (req, res) => {
