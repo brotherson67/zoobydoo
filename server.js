@@ -8,7 +8,7 @@ const express = require("express");
 // create instance of express app
 const app = express();
 // Define Port app will run on
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // express middleware
 // parse incoming string or array data
@@ -18,6 +18,7 @@ app.use(express.json());
 
 // query handler function
 function filterByQuery(query, animalsArray) {
+  5;
   // create array to store personality traits
   let personalityTraitsArray = [];
   // create localized instance of animals array
